@@ -1,0 +1,59 @@
+import itertools
+
+case_1 = [0, 2, 7, 0]
+
+
+# Read the input file
+#matrix = []
+#with open("input.txt", "r") as f:
+#for line in f:
+#print(line)
+#tmp = int(line)
+#matrix.append(tmp)
+#tmp = list(line)
+#tmp[-1] = tmp[-1].strip()
+#tmp = map(int, tmp)
+#matrix.append(tmp)
+#
+#print(matrix)
+
+def redist(bank):
+    idx = bank.index(max(bank))
+    max_val = bank[idx] 
+    bank[idx] = 0
+    length = len(bank)
+
+    while (max_val > 0):
+        idx = (idx + 1) % length
+        bank[idx] += 1
+        max_val -= 1
+
+    return bank
+
+
+def distribute(bank_input):
+    seen_before = list(redist(bank_input))
+    bank_input = list(seen_before)
+    bank_input = list(redist(bank_input))
+    revs = 2
+
+    while set(bank_input) != set(seen_before):
+#print(bank_input)
+        bank_input = list(redist(bank_input))
+        revs += 1
+
+    return revs
+
+
+# main #####################
+
+#print(maze_jumps(case_1))
+tmp = list(case_1)
+print(distribute(tmp))
+
+#print(redist(tmp))
+#print(redist(tmp))
+#print(redist(tmp))
+#print(redist(tmp))
+#print(redist(tmp))
+#print(redist(tmp))
